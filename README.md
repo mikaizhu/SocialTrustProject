@@ -1,5 +1,7 @@
 # 流程说明
 
+项目目录结构参考：https://github.com/SpikeKing/DL-Project-Template/blob/master/README.md
+
 要初步了解本项目，代码部分请按顺序阅读：
 
 - p1-p11.py文件
