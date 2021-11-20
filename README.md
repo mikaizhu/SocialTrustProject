@@ -25,7 +25,7 @@
 1. Facebook原始数据(里面有post like comment member.csv文件, 一共五个小组)
 2. corpus(五个小组中用户的交互数据，比如互动时间等)
 
-# 数据说明
+# 数据说明(Part 1)
 
 首先是4个csv文件: comment post member like, 分别对应用户的评论，发帖， 个人，
 点赞四个信息
@@ -135,4 +135,61 @@ lda参考资料：
   ，单词出现的频率，比如10个文章一共有100个单词组成，那么最后函数输出为一个
   10*100的矩阵，这个矩阵每一行表示单词出现的频率
 - 经过lda获得的是什么？[参考](https://towardsdatascience.com/latent-dirichlet-allocation-for-topic-modelling-explained-algorithm-and-python-scikit-learn-c65a82e7304d) 主题为我们自己选定的,假设为20，模型会从所有的文本中选取20个主题，每行都是一个主题的概率分布，概率值最大，说明当前文本属于该主题的可能性比较高. 所以最后得到的是每个文本的主题概率分布矩阵, fit命令就是只从数据中学习有多少主题
+
+# KDD文章说明
+
+文件说明:
+- synthetic_data_sim_part3.m
+- synthetic_data_sim_part2.m
+- synthetic_data_sim.m
+- main_after_X.m
+- main.m
+- FB_Step2_det_stubborn_greedy.m
+- FB_Step1_est_op_modelP.m
+- FB_Step1_est_op_model3.m
+- FB_Step1_est_op_model2.m
+- FB_Step1_est_op_foramine.m
+- FB_Step1_est_op.m
+- det_stubborn_greedy.m
+- do_sht_magic_csv.m
+
+
+代码阅读顺序:
+
+1. main.m
+
+> 第一阶段
+> 代码的第一部分是数据处理，数据为json文件(导入也为json格式的数据)，对数据处理完后，发现一共只有370个
+> 帖子，为了保证最后模型效果比较好，这里要筛选出比较受欢迎的帖子，筛选方法为：
+> 一个帖子的评论数和喜欢数之和，超过设定的阈值(15)，则保留下来, 最后只剩下55个帖子。(get_best_posts.m)
+> get_agents函数从best_posts中所有帖子中的like， post comment三个指标中，统计哪些用户点
+> 赞，发帖，或者评论，如果有以上行为，则记录在表格中，并统计这个用户的活跃度
+> activity，每有一次以上行为就加1, 然后根据activity的数量，从高到低对用户进行
+> 排序, 然后将用户的名字，用A1-A(lenght)进行替换
+
+> 第二阶段
+> 构建行为字典, 字典中的部分内容如下
+> ```
+> dico = struct('keyword','*LIKE*','value',1,'group',2);
+> dico = [dico, struct('keyword','*TEXT*WITHOUT*KEYWORDS*','value',1,'group',1)]; % 为结构体添加一行内容
+> dico = [dico, struct('keyword',';)','value',2,'group',1)];
+> ```
+> 然后根据自己构建的这个struct字典，输入到term_doc函数中term_doc(dico, posts,
+> agents) 生成词文档矩阵, 经过数据处理后，一共有55个帖子，然后其中这55个帖子中
+> 一共有95个用户互动，作者定义了19种状态，即生成19*55*95的矩阵，55表示55个帖子
+> ，95表示所有帖子中有95个用户互动。term_doc先对每个post进行遍历，如果这个帖子
+> ，有人like过，则找到这些like的用户，并将矩阵C(2,post_i, user_i)设置为1。然后
+> 对这个post的message，即帖子的内容进行判断，如果有内容，则找到这个帖子是谁发
+> 的，并将C(1, post_id, user_id)设置为1.最后遍历该post中message中的所有状态,
+> 如commets中有没有笑脸，有没有感叹词等，如果有，统计出现的词语次数, 在对应的
+> 用户位置加频率，最后得到C矩阵(C{1}, C{2}, C{19}分别对应发帖人，点赞帖子的人
+> ，do nothing}, 可以在论文中找到)
+
+
+>  得到C矩阵后，可以根据C计算出每个用户的lambda值，因为只有95个agents，最后
+>  lambda是95*1的列向量, 每个用户的计算公式为`sum(vec(C(:,:,nn))) / length(best_posts);` 这里vec的作用是，将一个矩阵，拉直为一个向量
+> lambda 其实是每个用户是否有在帖子中互动过的参数，如果为0，表示该用户在所有帖
+> 子中每任何互动，过滤掉这些用户，更新C和lambda向量以及agents矩阵
+
+> 这里nb_groups不知道什么意思
 
