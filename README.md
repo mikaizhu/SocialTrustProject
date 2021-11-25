@@ -202,6 +202,12 @@ stubborn，如果没有找到，则选择距离中心近的
 
 # KDD文章说明
 
+依赖cvx安装：
+- mac `sudo spctl --master-disable
+` 解除开发者模式
+- 下载cvx：http://cvxr.com/cvx/beta/
+- cd cvx, cvx_setup
+
 文件说明:
 - synthetic_data_sim_part3.m
 - synthetic_data_sim_part2.m
@@ -248,6 +254,9 @@ stubborn，如果没有找到，则选择距离中心近的
 > 如commets中有没有笑脸，有没有感叹词等，如果有，统计出现的词语次数, 在对应的
 > 用户位置加频率，最后得到C矩阵(C{1}, C{2}, C{19}分别对应发帖人，点赞帖子的人
 > ，do nothing}, 可以在论文中找到)
+
+> P矩阵是action-altitude分布矩阵，作者定义的有19个action，3个态度, 因此P矩阵为
+> 19*3的概率分布矩阵
 
 > dictionary字典：该字典中只有两个group，其中一个group表示喜欢，支持，另一个
 > group为不支持, 每个group中有对应的举动，如表情等，还有对应的value,表示感情的
