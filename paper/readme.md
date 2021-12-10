@@ -1,7 +1,9 @@
 # 记录paper撰写的流程
 
 使用工具：
-- latex：使用平台[overleaf](https://cn.overleaf.com/project)
+- latex: 使用平台[overleaf](https://cn.overleaf.com/project)
+- 图片转latex: https://snip.mathpix.com/747876457/notes/note-1/edit
+- latex转图片: https://www.latexlive.com/
 
 如何开始撰写论文？
 
