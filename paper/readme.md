@@ -11,7 +11,35 @@
 
 如何使用latex？
 
+- kdd latex模板: https://www.kdd.org/author-instructions，需要下载两个文件.tex
+  & .cls文件
+- 使用软件：[overleaf](https://cn.overleaf.com) , 注意在设置中将texlive版本改
+  成2020，然后编译成pdf
 - 参考：[简单粗暴latex](https://github.com/wklchris/Note-by-LaTeX)
+
+**参考文献管理方法**:
+
+1. 创建bib文件，使用Google scholar 查找文献，点击下面的引用，复制bibtex格式，
+   粘贴到bib文件中，bib文件要和tex一样的目录
+2. 在`\documentclass{main}` 下面添加引用相关的包`\usepackage{cite}` 
+3. bib文件中，有每个参考文献的唯一标识符，在tex文件中使用`\cite{ref1}` 引用这
+   个论文
+
+**公式** :
+
+使用下面方式，会自带序号, 使用label为了方便引用：
+
+```
+\begin{equation}\label{1}
+
+\end{equation}
+```
+
+引用的时候：
+
+```
+\eqref{1}
+```
 
 内容：
 
