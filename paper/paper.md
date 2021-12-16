@@ -1,7 +1,7 @@
 # 文章结构
 ## 摘要(Abstract)
 
-- TODO: 这部分最后来写
+- [ ] 
 
 ## 1.介绍(1.Introduction)
 
