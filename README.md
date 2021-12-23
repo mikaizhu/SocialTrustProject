@@ -75,7 +75,7 @@ member.csv: 小组成员信息
 
 对应文件：以member为基本，所以先对member数据处理
 
-> p1: 处理member.csv文件, 如果一个ID对应多个名字，则从member.csv中删除这些数据
+> p1: 处理member.csv文件, 如果一个ID对应多个名字，则从member.csv中删除这些用户id数据, 这样每个组就不会有多个人用同一个ID了
 
 > p2: 以p1为基础，以member.csv为基准，检查post.csv文件，因为post文件有5个小组
 > ，检查每个小组中成员能不能从member.csv中找到，不能则删除对应数据
