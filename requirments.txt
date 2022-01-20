@@ -1,0 +1,6 @@
+skipy==1.5.3
+numpy==1.19.5
+sklearn==0.19.1
+pandas==0.23.0
+Gensim==4.1.2
+
